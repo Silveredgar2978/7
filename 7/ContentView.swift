@@ -55,8 +55,7 @@ struct ContentView: View {
             // Things listed later in the ZStack appear in Front
             // We use it to put "7" on top of the black backround
             
-            Color.black
-                .ignoresSafeArea()
+            Color.black.ignoresSafeArea()
             // color.black fills the screen with black
             // .ignoresSafeArea() makes it go behind the camera notch and home bar
             // without this you'd see white edges at top and bottom
@@ -64,30 +63,53 @@ struct ContentView: View {
             Text("7")
             // Text() displays string "7" on the iphone screen.  print() is for the terminal
             
-                .font(.system(size: 120, weight: .ultraLight, design: .serif))
-                //.font() sets the typography
-                //.system() uses apples built in system font - to not import new font
-                // weight: .ultralight - thinnest possible stroke very elegant
-                // design: .serif - adds small decorative strokes on letters
+                .font(.system(size: 570, weight: .black, design: .default))
+            //.font() sets the typography
+            //.system() uses apples built in system font - to not import new font
+            // weight: .ultralight - thinnest possible stroke very elegant
+            // design: .serif - adds small decorative strokes on letters
             
                 .foregroundColor(.white)
-                // Sets text color to white
-                // white on black
+            // Sets text color to white
+            // white on black
             
                 .opacity(isVisible ? 1 : 0)
-                // this basically just says that if the isVisible variable is true then opacity is 1, else 0
-                // opacity: 1 = fully visible, 0 = invisible
-                // isVisible ? 1 : 0 is Swift's ternary operator
+            // this basically just says that if the isVisible variable is true then opacity is 1, else 0
+            // opacity: 1 = fully visible, 0 = invisible
+            // isVisible ? 1 : 0 is Swift's ternary operator
             
                 .scaleEffect(scale)
-                // scales the elemt by the value of 'scale'
-                // Starts at 0.8 will grow to 1
-                // creates a subtle zoom-in effect
+            // scales the elemt by the value of 'scale'
+            // Starts at 0.8 will grow to 1
+            // creates a subtle zoom-in effect
             
                 .animation(.easeOut(duration: 1.2), value: isVisible)
-                // Smooth animation whenever isVisible changes
-                // easeOut = starts fast, slows down at the end. Feels natural
-                // duration: 1.2second
+            // Smooth animation whenever isVisible changes
+            // easeOut = starts fast, slows down at the end. Feels natural
+            // duration: 1.2second
+                .offset(x: 70, y: 300)
+            
+            VStack(spacing: 50) {
+                Button(action: {
+                    print("get started tapping") // we'll add navigation later
+                }) {
+                    Text("Get started")
+                        .font(.system(size: 14, weight: .light, design: .default))
+                        .foregroundColor(.white.opacity(1)) // subtle white
+                        .kerning(3) // spacing between letters
+                        .padding(.horizontal, 32)
+                        .padding(.vertical, 14)
+                        .background(Color.white.opacity(0.07))
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 2)
+                                .stroke(Color.white.opacity(0.07), lineWidth: 1)//ultra subtle border
+                        )
+                }
+                .padding(.bottom, 60)
+                .offset(y: 250)
+                .opacity(isVisible ? 1 : 0)
+                .animation(.easeOut(duration: 1.2).delay(0.4), value: isVisible) //button fades in slightly after 7
+            }
         }
         .onAppear {
             isVisible = true
@@ -104,3 +126,4 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+// to be able to preview the code
